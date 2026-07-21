@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply border-sand; }
+  html { @apply bg-cream text-cocoa; }
+  body { @apply min-h-screen bg-cream font-sans antialiased; }
+  button, input { font: inherit; }
+  button { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .page-heading { @apply font-display text-3xl font-bold tracking-tight text-cocoa sm:text-4xl; }
+  .page-copy { @apply mt-2 max-w-lg text-sm leading-6 text-cocoa/65; }
+  .focus-ring { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-cream; }
+}
