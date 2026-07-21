@@ -19,10 +19,17 @@ class DatabaseService:
 
     def user_for_access_token(self, token: str):
         """Verify a Supabase access token and return its authenticated user."""
-        response = self.client().auth.get_user(token)
+        response = self.client().auth.get_user(jwt=token)
+
         if not response.user:
             raise ValueError("Invalid authentication token.")
+
         return response.user
+    
+    def is_configured(self) -> bool:
+        print("SUPABASE URL:", settings.supabase_url)
+        print("HAS KEY:", bool(settings.supabase_service_role_key))
+        return bool(settings.supabase_url and settings.supabase_service_role_key)
 
 
 database_service = DatabaseService()
