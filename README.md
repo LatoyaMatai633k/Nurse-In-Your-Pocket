@@ -1,69 +1,241 @@
 # Nurse in Your Pocket
 
-Nurse in Your Pocket is an AI-powered personal health companion designed primarily for young women in South Africa. It provides trustworthy health education, help preparing for clinic visits, and tools that make healthcare easier to navigate. It supports and never replaces qualified healthcare professionals.
+> **An AI-powered women's health companion that helps young women make informed healthcare decisions through trusted health guidance, symptom support, period tracking, appointment management, and clinic preparation.**
 
-## Problem statement
+## 🌍 Overview
 
-Many young women face barriers to understandable health information, prepared clinic conversations, and consistent personal health organisation. Connectivity, time, and uncertainty can make these barriers harder.
+Nurse in Your Pocket is an AI-powered mobile-first healthcare application built to improve access to reliable health information for young women, particularly those who rely on public healthcare services.
 
-## Solution
+Many young women feel intimidated when seeking reproductive and general healthcare because of fear of judgment, long clinic queues, or limited access to trustworthy medical information. Nurse in Your Pocket provides a safe, private space where users can learn about common health concerns, prepare for clinic visits, keep track of their health, and receive AI-assisted guidance while encouraging professional medical care whenever necessary.
 
-A warm, accessible mobile-first companion that brings health education, care preparation, appointment organisation, and future AI guidance into one private space.
+> **Nurse in Your Pocket does not replace healthcare professionals. It is designed to educate, support, and encourage users to seek medical attention when appropriate.**
 
-## Milestone 1 features
+---
 
-- React, Vite, TypeScript, Tailwind CSS frontend
-- Reusable healthcare design system and responsive navigation shell
-- Supabase-ready email, password reset, and Google authentication flow
-- Protected dashboard routes and session management
-- Dashboard placeholders for Nompilo, symptom checking, period tracking, library, appointments, health profile, and settings
-- FastAPI API foundation with configuration, versioned routes, and future service boundaries
+# 🚨 Problem Statement
 
-## Architecture
+In many South African communities, especially among young women and teenagers, access to healthcare is often accompanied by several challenges:
+
+- Fear of judgment when seeking reproductive healthcare.
+- Long waiting times at public clinics.
+- Limited access to trustworthy health information.
+- Difficulty remembering appointments and personal health history.
+- Lack of a single platform that combines education, organisation, and AI-assisted healthcare support.
+
+These barriers often delay people from seeking the care they need.
+
+---
+
+# 💡 Our Solution
+
+Nurse in Your Pocket is designed to bridge this gap by providing an intelligent healthcare companion that enables users to:
+
+- Learn about common health concerns.
+- Prepare for clinic visits.
+- Track menstrual cycles.
+- Organise healthcare appointments.
+- Store basic health information securely.
+- Receive AI-assisted symptom guidance with built-in safety escalation.
+- Access trusted healthcare education in one place.
+
+The application focuses on supporting—not replacing—professional medical advice.
+
+---
+
+# ✨ Features
+
+## 🤖 Nompilo AI Assistant
+
+An AI-powered healthcare companion that:
+
+- Answers general health questions.
+- Helps users understand common symptoms.
+- Encourages professional medical care.
+- Detects emergency situations and immediately advises users to seek urgent medical assistance.
+
+---
+
+## ❤️ Symptom Checker
+
+Users can describe their symptoms and receive:
+
+- Educational guidance.
+- Possible health explanations.
+- Self-care recommendations where appropriate.
+- Safety-first escalation for severe symptoms.
+
+---
+
+## 🌸 Period Tracker
+
+- Track menstrual cycles.
+- Record period start and end dates.
+- View estimated upcoming periods.
+
+---
+
+## 📅 Appointment Management
+
+Users can:
+
+- Record clinic appointments.
+- View upcoming appointments.
+- Keep track of their healthcare schedule.
+
+---
+
+## 👤 Health Profile
+
+Store important personal healthcare information such as:
+
+- Allergies
+- Medications
+- Existing medical conditions
+- Emergency information
+
+---
+
+## 📚 Health Library
+
+A curated educational library containing trusted information on:
+
+- Women's health
+- Sexual and reproductive health
+- General wellness
+- Preventive healthcare
+
+---
+
+## 🔐 Secure Authentication
+
+- Email sign up
+- Email login
+- Password reset
+- Google Authentication
+- Protected routes using Supabase Authentication
+
+---
+
+# 🏗 Tech Stack
+
+## Frontend
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+
+## Backend
+
+- FastAPI
+- Python
+
+## Database
+
+- Supabase PostgreSQL
+
+## Authentication
+
+- Supabase Authentication
+
+## AI
+
+- OpenAI API
+
+---
+
+# 📂 Project Structure
 
 ```
-frontend/  React client, UI system, Supabase browser auth
-backend/   FastAPI API, configuration, services, schemas
+frontend/
+├── src/
+├── components/
+├── pages/
+├── lib/
+
+backend/
+├── app/
+├── api/
+├── services/
+├── schemas/
+
+supabase/
+└── migrations/
 ```
 
-The frontend communicates with Supabase Auth directly. Future healthcare data and Nompilo capabilities will be exposed by the FastAPI service layer and persisted through Supabase PostgreSQL.
+---
 
-## Installation
+# ⚙ Installation
 
-### Frontend
+## Clone the repository
+
+```bash
+git clone https://github.com/LatoyaMatai633k/nurse-in-your-pocket.git
+
+cd nurse-in-your-pocket
+```
+
+---
+
+## Frontend
 
 ```bash
 cd frontend
-copy .env.example .env
+
+cp .env.example .env
+
 npm install
+
 npm run dev
 ```
 
-Populate `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `frontend/.env`. In Supabase Auth, enable Email and Google providers, and add your local and production callback URLs.
+---
 
-### Backend
+## Backend
 
 ```bash
 cd backend
-copy .env.example .env
+
 python -m venv .venv
-.venv\\Scripts\\activate
+
+source .venv/Scripts/activate
+
 pip install -r requirements.txt
+
 uvicorn app.main:app --reload
 ```
 
-## Screenshots
+---
 
-_Screenshots will be added as the application feature set is completed._
+# 📸 Screenshots
 
-## Future roadmap
+> Screenshots will be added after deployment.
 
-- Nompilo AI health education and clinic-preparation conversations
-- Symptom guidance with safety escalation
-- Period tracking, appointments, and personal health profile
-- Offline health library and four-language support
-- Voice, medication scanning, reminders, and health integrations
+---
 
-## License
+# 🚀 Future Enhancements
+
+- Multilingual support (English, isiZulu, isiXhosa, Sesotho)
+- Offline mode for low-connectivity communities
+- Push notifications and appointment reminders
+- Voice conversations with Nompilo
+- Medication reminders
+- Nearby clinic locator
+- Health record export
+- Wearable device integration
+
+---
+
+# 🩺 Medical Disclaimer
+
+Nurse in Your Pocket is intended for educational and informational purposes only.
+
+It does **not** diagnose, treat, cure, or replace qualified healthcare professionals.
+
+Users experiencing severe symptoms or medical emergencies should immediately contact their nearest healthcare facility or emergency services.
+
+---
+
+# 📄 License
 
 This project is licensed under the MIT License.
