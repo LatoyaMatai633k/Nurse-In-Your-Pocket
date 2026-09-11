@@ -1,6 +1,12 @@
--- Apply in the Supabase SQL editor or via the Supabase CLI before enabling MVP data features.
+-- ==============================================================================
+-- NURSE IN YOUR POCKET - SUPABASE DATABASE MIGRATION
+-- Run this script in the Supabase Dashboard -> SQL Editor -> New Query
+-- ==============================================================================
+
+-- 1. Enable pgcrypto for UUID generation
 create extension if not exists pgcrypto;
 
+-- 2. Health Profiles Table
 create table if not exists public.health_profiles (
   user_id uuid primary key references auth.users(id) on delete cascade,
   name text,
@@ -12,9 +18,11 @@ create table if not exists public.health_profiles (
   chronic_conditions jsonb not null default '[]'::jsonb,
   contraceptive_method text,
   preferred_language text not null default 'English',
+  created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
+-- 3. Period Records Table
 create table if not exists public.period_records (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
@@ -26,6 +34,7 @@ create table if not exists public.period_records (
   created_at timestamptz not null default now()
 );
 
+-- 4. Appointments Table
 create table if not exists public.appointments (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
@@ -37,6 +46,7 @@ create table if not exists public.appointments (
   created_at timestamptz not null default now()
 );
 
+-- 5. Chat Messages (Nompilo History) Table
 create table if not exists public.chat_messages (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
@@ -45,16 +55,47 @@ create table if not exists public.chat_messages (
   created_at timestamptz not null default now()
 );
 
+-- 6. Enable Row Level Security (RLS) on all tables
 alter table public.health_profiles enable row level security;
 alter table public.period_records enable row level security;
 alter table public.appointments enable row level security;
 alter table public.chat_messages enable row level security;
 
-create policy "Users manage their own health profile" on public.health_profiles for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "Users manage their own period records" on public.period_records for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "Users manage their own appointments" on public.appointments for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "Users manage their own chat messages" on public.chat_messages for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+-- 7. Drop existing policies if needed to prevent duplication errors, then re-create
+do $$
+begin
+  drop policy if exists "Users manage their own health profile" on public.health_profiles;
+  drop policy if exists "Users manage their own period records" on public.period_records;
+  drop policy if exists "Users manage their own appointments" on public.appointments;
+  drop policy if exists "Users manage their own chat messages" on public.chat_messages;
+end $$;
 
+-- 8. Create Secure RLS Policies
+create policy "Users manage their own health profile" 
+  on public.health_profiles 
+  for all 
+  using (auth.uid() = user_id) 
+  with check (auth.uid() = user_id);
+
+create policy "Users manage their own period records" 
+  on public.period_records 
+  for all 
+  using (auth.uid() = user_id) 
+  with check (auth.uid() = user_id);
+
+create policy "Users manage their own appointments" 
+  on public.appointments 
+  for all 
+  using (auth.uid() = user_id) 
+  with check (auth.uid() = user_id);
+
+create policy "Users manage their own chat messages" 
+  on public.chat_messages 
+  for all 
+  using (auth.uid() = user_id) 
+  with check (auth.uid() = user_id);
+
+-- 9. Performance Indexes
 create index if not exists period_records_user_start_idx on public.period_records (user_id, start_date desc);
 create index if not exists appointments_user_date_idx on public.appointments (user_id, appointment_at);
 create index if not exists chat_messages_user_created_idx on public.chat_messages (user_id, created_at);

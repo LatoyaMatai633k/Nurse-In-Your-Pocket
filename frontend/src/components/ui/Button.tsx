@@ -8,20 +8,38 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const styles = {
-  primary: 'bg-terracotta text-white hover:bg-cocoa active:bg-white active:text-terracotta active:ring-1 active:ring-terracotta',
-  secondary: 'bg-sand text-cocoa hover:bg-nude active:bg-white active:text-terracotta active:ring-1 active:ring-terracotta',
-  ghost: 'bg-transparent text-terracotta hover:bg-sand/70 active:bg-white active:ring-1 active:ring-terracotta',
-  danger: 'bg-rose text-white hover:bg-[#ad6e6e] active:bg-white active:text-rose active:ring-1 active:ring-rose',
+  // Normal: Purple background, White text; Hover: Cream background, Purple text, Purple border
+  primary:
+    'bg-purple-700 text-white border border-purple-700 hover:bg-cream hover:text-purple-700 hover:border-purple-700 active:bg-purple-100',
+  secondary:
+    'bg-white text-plum border border-sand hover:bg-cream hover:border-purple-300 active:bg-purple-50 shadow-sm',
+  ghost:
+    'bg-transparent text-purple-700 border border-transparent hover:bg-purple-100/60 active:bg-purple-100',
+  danger:
+    'bg-rose text-white border border-rose hover:bg-cream hover:text-rose hover:border-rose active:bg-rose/10',
 }
 
-export function Button({ children, variant = 'primary', fullWidth, loading, className = '', disabled, ...props }: ButtonProps) {
+export function Button({
+  children,
+  variant = 'primary',
+  fullWidth,
+  loading,
+  className = '',
+  disabled,
+  ...props
+}: ButtonProps) {
   return (
     <button
-      className={`focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${styles[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
+      className={`focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${styles[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
       disabled={disabled || loading}
       {...props}
     >
-      {loading && <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />}
+      {loading && (
+        <span
+          className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+          aria-hidden="true"
+        />
+      )}
       {children}
     </button>
   )
