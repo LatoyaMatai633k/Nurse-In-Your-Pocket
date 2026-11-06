@@ -1,0 +1,6 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthLayout } from '../components/auth/AuthLayout'
+import { Button } from '../components/ui/Button'
+import { Input } from '../components/ui/Input'
+export function ForgotPasswordPage() { const [email, setEmail] = useState(''); const [sent, setSent] = useState(false); return <AuthLayout><section className="p-6 sm:p-8"><h1 className="text-2xl font-bold text-plum">Reset password</h1><p className="mt-2 text-sm leading-6 text-cocoa/70">Your account is stored only on this device. Create a new local session to continue.</p>{sent ? <p className="mt-6 rounded-lg bg-sage/10 p-4 text-sm text-sage">For privacy, password recovery is not available for device-only accounts. Please create a new account.</p> : <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); setSent(true) }}><Input label="Email address" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /><Button type="submit" fullWidth>Continue</Button></form>}<p className="mt-6 text-center text-xs"><Link className="font-bold text-purple-700 hover:underline" to="/login">Back to sign in</Link></p></section></AuthLayout> }
